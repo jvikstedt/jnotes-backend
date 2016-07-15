@@ -1,6 +1,6 @@
 package: github.com/jvikstedt/jnotes-backend
 import:
 - package: github.com/julienschmidt/httprouter
-  version: ~1.1.0
 - package: github.com/urfave/negroni
-  version: ~0.2.0
+- package: github.com/lib/pq
+- package: github.com/jmoiron/sqlx

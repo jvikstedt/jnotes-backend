@@ -1,8 +1,12 @@
-hash: 0a4093e796cc0aac4e1a7e0bd67bf007ea969d4a510e800fa60feba430759198
-updated: 2016-07-15T21:49:38.27788288+03:00
+hash: e409fea8312667ec9c8a93bdb4744f49474bab97fe2f8bc44570311b186d0897
+updated: 2016-07-15T23:05:04.016327785+03:00
 imports:
+- name: github.com/jmoiron/sqlx
+  version: bdae0c3219c3bdb92f3d7c70825018712787c933
 - name: github.com/julienschmidt/httprouter
-  version: 8c199fb6259ffc1af525cc3ad52ee60ba8359669
+  version: fb79d6a91d3e4a9ecb6d945b218d78fc0d9b1939
+- name: github.com/lib/pq
+  version: 4dd446efc17690bc53e154025146f73203b18309
 - name: github.com/urfave/negroni
-  version: fde5e16d32adc7ad637e9cd9ad21d4ebc6192535
+  version: dc6b9d037e8dab60cbfc09c61d6932537829be8b
 testImports: []
