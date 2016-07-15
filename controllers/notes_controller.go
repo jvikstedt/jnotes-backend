@@ -8,10 +8,10 @@ import (
 	"net/http"
 )
 
-// NotesController controller
+// NotesController All actions will be bound to this
 type NotesController struct{}
 
-// Index Action
+// Index Action that returns all notes
 func (NotesController) Index(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	notes := models.GetAllNotes()
 	notesJSON, _ := json.Marshal(notes)

@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// Note model
+// Note represents Model Note
 type Note struct {
 	ID        int
 	Title     string
@@ -13,7 +13,7 @@ type Note struct {
 	UpdatedAt time.Time `db:"updated_at"`
 }
 
-// GetAllNotes Fetch all notes
+// GetAllNotes Fetches all notes from the database
 func GetAllNotes() []Note {
 	notes := []Note{}
 	database.DB.Select(&notes, "SELECT * FROM notes")
