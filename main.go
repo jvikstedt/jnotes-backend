@@ -1,23 +1,25 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
 	"os"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/jvikstedt/jnotes-backend/controllers"
+	"github.com/jvikstedt/jnotes-backend/database"
 	"github.com/urfave/negroni"
 )
 
 func main() {
+	database.Setup()
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
 	}
 	router := httprouter.New()
-	router.GET("/", func(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
-		fmt.Fprintln(w, "test")
-	})
+
+	notesController := controllers.NotesController{}
+
+	router.GET("/", notesController.Index)
 
 	n := negroni.Classic()
 	n.UseHandler(router)
