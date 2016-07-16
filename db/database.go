@@ -15,12 +15,12 @@ var DB *sqlx.DB
 type Config map[string]map[string]string
 
 // Setup database connection
-func Setup() {
+func Setup(configPath string) {
 	env := os.Getenv("ENV")
 	if env == "" {
 		env = "development"
 	}
-	data, err := ioutil.ReadFile("./db/dbconf.yml")
+	data, err := ioutil.ReadFile(configPath)
 	if err != nil {
 		panic(err)
 	}

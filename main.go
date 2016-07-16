@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	db.Setup()
+	db.Setup("./db/dbconf.yml")
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
