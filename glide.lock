@@ -1,12 +1,18 @@
-hash: e409fea8312667ec9c8a93bdb4744f49474bab97fe2f8bc44570311b186d0897
-updated: 2016-07-15T23:05:04.016327785+03:00
+hash: 9026b30b8609e0ffb4fccece7bf95088e3bfc41f36fe1e4acc5fe4244562dab0
+updated: 2016-07-16T13:02:38.432255817+03:00
 imports:
 - name: github.com/jmoiron/sqlx
   version: bdae0c3219c3bdb92f3d7c70825018712787c933
+  subpackages:
+  - reflectx
 - name: github.com/julienschmidt/httprouter
   version: fb79d6a91d3e4a9ecb6d945b218d78fc0d9b1939
 - name: github.com/lib/pq
   version: 4dd446efc17690bc53e154025146f73203b18309
+  subpackages:
+  - oid
 - name: github.com/urfave/negroni
   version: dc6b9d037e8dab60cbfc09c61d6932537829be8b
+- name: gopkg.in/yaml.v2
+  version: e4d366fc3c7938e2958e662b4258c7a89e1f0e3e
 testImports: []

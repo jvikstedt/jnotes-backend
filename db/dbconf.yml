@@ -1,0 +1,7 @@
+test:
+  driver: postgres
+  open: user=jnotes password=jnotes dbname=jnotes_test
+
+development:
+  driver: postgres
+  open: user=jnotes password=jnotes dbname=jnotes_development

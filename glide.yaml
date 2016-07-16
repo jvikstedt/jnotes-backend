@@ -4,3 +4,4 @@ import:
 - package: github.com/urfave/negroni
 - package: github.com/lib/pq
 - package: github.com/jmoiron/sqlx
+- package: gopkg.in/yaml.v2

@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/jvikstedt/jnotes-backend/database"
+	"github.com/jvikstedt/jnotes-backend/db"
 	"time"
 )
 
@@ -16,6 +16,6 @@ type Note struct {
 // GetAllNotes Fetches all notes from the database
 func GetAllNotes() []Note {
 	notes := []Note{}
-	database.DB.Select(&notes, "SELECT * FROM notes")
+	db.DB.Select(&notes, "SELECT * FROM notes")
 	return notes
 }

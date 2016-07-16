@@ -5,12 +5,12 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/jvikstedt/jnotes-backend/controllers"
-	"github.com/jvikstedt/jnotes-backend/database"
+	"github.com/jvikstedt/jnotes-backend/db"
 	"github.com/urfave/negroni"
 )
 
 func main() {
-	database.Setup()
+	db.Setup()
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
