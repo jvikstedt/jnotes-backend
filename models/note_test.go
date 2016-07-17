@@ -49,12 +49,10 @@ func TestSave(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, note.ID, id)
 	assert.Equal(t, note.Title, "Ruby")
-	assert.NotEqual(t, note.UpdatedAt, updatedAt)
+	assert.True(t, note.UpdatedAt.After(updatedAt))
 }
 
 func TestGetAllNotes(t *testing.T) {
 	notes := GetAllNotes()
-	if len(notes) > 0 {
-		t.Error("Expected length 0, got: ", len(notes))
-	}
+	assert.Zero(t, len(notes))
 }
