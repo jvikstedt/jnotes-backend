@@ -27,6 +27,24 @@ func (NotesController) Index(w http.ResponseWriter, req *http.Request, _ httprou
 	fmt.Fprintf(w, "%s", notesJSON)
 }
 
+// Find Action that finds note by id
+func (NotesController) Find(w http.ResponseWriter, req *http.Request, p httprouter.Params) {
+	id, err := strconv.Atoi(p.ByName("id"))
+	if err != nil {
+		w.WriteHeader(400)
+		return
+	}
+	note, err := models.GetNote(id)
+	if err != nil {
+		w.WriteHeader(404)
+		return
+	}
+	noteJSON, _ := json.Marshal(note)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", noteJSON)
+}
+
 // Create Action that creates a note
 func (NotesController) Create(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	body, err := ioutil.ReadAll(req.Body)
