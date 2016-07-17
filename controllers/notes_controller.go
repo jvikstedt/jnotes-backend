@@ -57,6 +57,34 @@ func (NotesController) Create(w http.ResponseWriter, req *http.Request, _ httpro
 	note.Save()
 }
 
+// Update Action that updates a note
+func (NotesController) Update(w http.ResponseWriter, req *http.Request, p httprouter.Params) {
+	id, err := strconv.Atoi(p.ByName("id"))
+	if err != nil {
+		w.WriteHeader(400)
+		return
+	}
+	note, err := models.GetNote(id)
+	if err != nil {
+		w.WriteHeader(404)
+		return
+	}
+
+	body, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		panic(err)
+	}
+	params := allowedParams{}
+	err = json.Unmarshal(body, &params)
+	note.Title = params.Title
+	err = note.Save()
+	if err != nil {
+		w.WriteHeader(400)
+		return
+	}
+	w.WriteHeader(200)
+}
+
 // Destroy Action that destroys a note
 func (NotesController) Destroy(w http.ResponseWriter, req *http.Request, p httprouter.Params) {
 	id, err := strconv.Atoi(p.ByName("id"))
