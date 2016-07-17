@@ -41,6 +41,7 @@ func (n *Note) IsNew() bool {
 
 // GetAllNotes Fetches all notes from the database
 func GetAllNotes() (notes []Note, err error) {
+	notes = []Note{}
 	err = db.DB.Select(&notes, "SELECT * FROM notes")
 	return
 }
