@@ -19,7 +19,7 @@ type NotesController struct{}
 
 // Index Action that returns all notes
 func (NotesController) Index(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
-	notes := models.GetAllNotes()
+	notes, _ := models.GetAllNotes()
 	notesJSON, _ := json.Marshal(notes)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)

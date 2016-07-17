@@ -34,8 +34,13 @@ func (n *Note) IsNew() bool {
 }
 
 // GetAllNotes Fetches all notes from the database
-func GetAllNotes() []Note {
-	notes := []Note{}
-	db.DB.Select(&notes, "SELECT * FROM notes")
-	return notes
+func GetAllNotes() (notes []Note, err error) {
+	err = db.DB.Select(&notes, "SELECT * FROM notes")
+	return
+}
+
+// GetNote Find note by id
+func GetNote(id int) (note Note, err error) {
+	err = db.DB.Get(&note, "SELECT * FROM notes WHERE id=$1", id)
+	return
 }
