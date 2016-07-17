@@ -30,6 +30,7 @@ func setupRouter() *httprouter.Router {
 	notesController := controllers.NotesController{}
 	router.GET("/notes", notesController.Index)
 	router.POST("/notes", notesController.Create)
+	router.DELETE("/notes/:id", notesController.Destroy)
 
 	return router
 }

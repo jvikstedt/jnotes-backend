@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/jvikstedt/jnotes-backend/models"
@@ -36,4 +37,23 @@ func (NotesController) Create(w http.ResponseWriter, req *http.Request, _ httpro
 	err = json.Unmarshal(body, &params)
 	note := models.Note{Title: params.Title}
 	note.Save()
+}
+
+// Destroy Action that destroys a note
+func (NotesController) Destroy(w http.ResponseWriter, req *http.Request, p httprouter.Params) {
+	id, err := strconv.Atoi(p.ByName("id"))
+	if err != nil {
+		w.WriteHeader(400)
+		return
+	}
+	note, err := models.GetNote(id)
+	if err != nil {
+		w.WriteHeader(404)
+		return
+	}
+	note.Destroy()
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", "{\"success\":\"true\"}")
 }
