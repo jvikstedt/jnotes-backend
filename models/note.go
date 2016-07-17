@@ -15,9 +15,9 @@ type Note struct {
 }
 
 // Save Saves Note to database
-func (n *Note) Save() (note Note, err error) {
+func (n *Note) Save() (err error) {
 	now := time.Now()
-	err = db.DB.Get(&note, "INSERT INTO notes (title, created_at, updated_at) VALUES($1, $2, $3) RETURNING id, title, created_at, updated_at", n.Title, now, now)
+	err = db.DB.Get(n, "INSERT INTO notes (title, created_at, updated_at) VALUES($1, $2, $3) RETURNING id, title, created_at, updated_at", n.Title, now, now)
 	return
 }
 
