@@ -9,8 +9,11 @@ import (
 	"github.com/urfave/negroni"
 )
 
-func main() {
+func init() {
 	db.Setup("./db/dbconf.yml")
+}
+
+func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
