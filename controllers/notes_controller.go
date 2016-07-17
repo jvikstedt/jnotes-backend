@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -21,10 +20,9 @@ type NotesController struct{}
 // Index Action that returns all notes
 func (NotesController) Index(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	notes, _ := models.GetAllNotes()
-	notesJSON, _ := json.Marshal(notes)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
-	fmt.Fprintf(w, "%s", notesJSON)
+	json.NewEncoder(w).Encode(notes)
 }
 
 // Find Action that finds note by id
@@ -39,10 +37,9 @@ func (NotesController) Find(w http.ResponseWriter, req *http.Request, p httprout
 		w.WriteHeader(404)
 		return
 	}
-	noteJSON, _ := json.Marshal(note)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
-	fmt.Fprintf(w, "%s", noteJSON)
+	json.NewEncoder(w).Encode(note)
 }
 
 // Create Action that creates a note
@@ -101,5 +98,5 @@ func (NotesController) Destroy(w http.ResponseWriter, req *http.Request, p httpr
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
-	fmt.Fprintf(w, "%s", "{\"success\":\"true\"}")
+	json.NewEncoder(w).Encode(map[string]bool{"success": true})
 }
