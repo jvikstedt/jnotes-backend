@@ -55,4 +55,14 @@ func TestSave(t *testing.T) {
 func TestGetAllNotes(t *testing.T) {
 	notes := GetAllNotes()
 	assert.Zero(t, len(notes))
+
+	note := validNote()
+	note.Save()
+	notes = GetAllNotes()
+	assert.Equal(t, len(notes), 1)
+	note.Save()
+	note = validNote()
+	note.Save()
+	notes = GetAllNotes()
+	assert.Equal(t, len(notes), 2)
 }
