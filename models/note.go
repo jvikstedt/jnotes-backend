@@ -25,6 +25,12 @@ func (n *Note) Save() (err error) {
 	return
 }
 
+// Destroy Removes Note from database
+func (n *Note) Destroy() (err error) {
+	_, err = db.DB.Exec("DELETE FROM notes WHERE id=$1", n.ID)
+	return
+}
+
 // IsNew returns true if record has not been saved to database otherwise false
 func (n *Note) IsNew() bool {
 	if n.ID == 0 {

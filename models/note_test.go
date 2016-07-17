@@ -80,3 +80,15 @@ func TestGetNote(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, newNote.Title, note.Title)
 }
+
+func TestDestroy(t *testing.T) {
+	defer clearNotes()
+
+	note := validNote()
+	note.Save()
+
+	err := note.Destroy()
+	assert.Nil(t, err)
+	_, err = GetNote(note.ID)
+	assert.Error(t, err)
+}
