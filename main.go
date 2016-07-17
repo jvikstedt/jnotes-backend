@@ -19,7 +19,8 @@ func main() {
 
 	notesController := controllers.NotesController{}
 
-	router.GET("/", notesController.Index)
+	router.GET("/notes", notesController.Index)
+	router.POST("/notes", notesController.Create)
 
 	n := negroni.Classic()
 	n.UseHandler(router)

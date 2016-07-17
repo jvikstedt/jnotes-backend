@@ -1,8 +1,9 @@
 package models
 
 import (
-	"github.com/jvikstedt/jnotes-backend/db"
 	"time"
+
+	"github.com/jvikstedt/jnotes-backend/db"
 )
 
 // Note represents Model Note
@@ -11,6 +12,13 @@ type Note struct {
 	Title     string
 	CreatedAt time.Time `db:"created_at"`
 	UpdatedAt time.Time `db:"updated_at"`
+}
+
+// Save Saves Note to database
+func (n *Note) Save() (note Note, err error) {
+	now := time.Now()
+	err = db.DB.Get(&note, "INSERT INTO notes (title, created_at, updated_at) VALUES($1, $2, $3) RETURNING id, title, created_at, updated_at", n.Title, now, now)
+	return
 }
 
 // GetAllNotes Fetches all notes from the database
