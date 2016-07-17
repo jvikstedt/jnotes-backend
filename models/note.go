@@ -18,9 +18,9 @@ type Note struct {
 func (n *Note) Save() (err error) {
 	now := time.Now()
 	if n.IsNew() {
-		err = db.DB.Get(n, "INSERT INTO notes (title, created_at, updated_at) VALUES($1, $2, $3) RETURNING id, title, created_at, updated_at", n.Title, now, now)
+		err = db.DB.Get(n, "INSERT INTO notes (title, created_at, updated_at) VALUES($1, $2, $3) RETURNING id, created_at, updated_at", n.Title, now, now)
 	} else {
-		err = db.DB.Get(n, "UPDATE notes SET title=$1,updated_at=$2 RETURNING title, updated_at", n.Title, now)
+		err = db.DB.Get(n, "UPDATE notes SET title=$1,updated_at=$2 RETURNING updated_at", n.Title, now)
 	}
 	return
 }
