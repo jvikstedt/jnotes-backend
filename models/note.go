@@ -17,8 +17,20 @@ type Note struct {
 // Save Saves Note to database
 func (n *Note) Save() (err error) {
 	now := time.Now()
-	err = db.DB.Get(n, "INSERT INTO notes (title, created_at, updated_at) VALUES($1, $2, $3) RETURNING id, title, created_at, updated_at", n.Title, now, now)
+	if n.IsNew() {
+		err = db.DB.Get(n, "INSERT INTO notes (title, created_at, updated_at) VALUES($1, $2, $3) RETURNING id, title, created_at, updated_at", n.Title, now, now)
+	} else {
+		err = db.DB.Get(n, "UPDATE notes SET title=$1,updated_at=$2 RETURNING title, updated_at", n.Title, now)
+	}
 	return
+}
+
+// IsNew returns true if record has not been saved to database otherwise false
+func (n *Note) IsNew() bool {
+	if n.ID == 0 {
+		return true
+	}
+	return false
 }
 
 // GetAllNotes Fetches all notes from the database

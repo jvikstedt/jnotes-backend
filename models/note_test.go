@@ -35,10 +35,21 @@ func validNote() (n Note) {
 func TestSave(t *testing.T) {
 	defer clearNotes()
 	note := validNote()
+
+	// New Record
 	err := note.Save()
 	assert.Nil(t, err)
 	assert.NotZero(t, note.ID)
 	assert.Equal(t, note.Title, validNote().Title)
+
+	// Update
+	note.Title = "Ruby"
+	id, updatedAt := note.ID, note.UpdatedAt
+	err = note.Save()
+	assert.Nil(t, err)
+	assert.Equal(t, note.ID, id)
+	assert.Equal(t, note.Title, "Ruby")
+	assert.NotEqual(t, note.UpdatedAt, updatedAt)
 }
 
 func TestGetAllNotes(t *testing.T) {
