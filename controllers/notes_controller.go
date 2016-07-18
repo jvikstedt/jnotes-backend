@@ -20,9 +20,7 @@ type NotesController struct{}
 // Index Action that returns all notes
 func (NotesController) Index(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	notes, _ := models.GetAllNotes()
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(notes)
+	writeResponse(w, 200, notes)
 }
 
 // Find Action that finds note by id
@@ -37,9 +35,7 @@ func (NotesController) Find(w http.ResponseWriter, req *http.Request, p httprout
 		w.WriteHeader(404)
 		return
 	}
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(note)
+	writeResponse(w, 200, note)
 }
 
 // Create Action that creates a note
@@ -96,7 +92,11 @@ func (NotesController) Destroy(w http.ResponseWriter, req *http.Request, p httpr
 	}
 	note.Destroy()
 
+	writeResponse(w, 200, map[string]bool{"success": true})
+}
+
+func writeResponse(w http.ResponseWriter, status int, data interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(map[string]bool{"success": true})
+	json.NewEncoder(w).Encode(data)
 }
