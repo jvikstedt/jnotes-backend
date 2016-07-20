@@ -17,11 +17,14 @@ type Note struct {
 // Save Saves Note to database
 func (n *Note) Save() (err error) {
 	now := time.Now()
-	if n.IsNew() {
-		err = db.DB.Get(n, "INSERT INTO notes (title, created_at, updated_at) VALUES($1, $2, $3) RETURNING id, created_at, updated_at", n.Title, now, now)
-	} else {
-		err = db.DB.Get(n, "UPDATE notes SET title=$1,updated_at=$2 WHERE id=$3 RETURNING updated_at", n.Title, now, n.ID)
-	}
+	err = db.DB.Get(n, "INSERT INTO notes (title, created_at, updated_at) VALUES($1, $2, $3) RETURNING id, created_at, updated_at", n.Title, now, now)
+	return
+}
+
+// Update updates a existing note
+func (n *Note) Update() (err error) {
+	now := time.Now()
+	err = db.DB.Get(n, "UPDATE notes SET title=$1,updated_at=$2 WHERE id=$3 RETURNING updated_at", n.Title, now, n.ID)
 	return
 }
 

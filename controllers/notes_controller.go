@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/jvikstedt/jnotes-backend/models"
 	"github.com/labstack/echo"
@@ -11,6 +12,28 @@ import (
 func GetNotes(c echo.Context) error {
 	notes, _ := models.GetAllNotes()
 	return c.JSON(http.StatusOK, notes)
+}
+
+// GetNote retrieves a single note by id
+func GetNote(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	note, err := models.GetNote(id)
+	if err != nil {
+		return c.NoContent(http.StatusNotFound)
+	}
+	return c.JSON(http.StatusOK, note)
+}
+
+// CreateNote creates a note
+func CreateNote(c echo.Context) error {
+	note := &models.Note{}
+	if err := c.Bind(note); err != nil {
+		return err
+	}
+	if err := note.Save(); err != nil {
+		return err
+	}
+	return c.JSON(http.StatusCreated, note)
 }
 
 //type allowedParams struct {

@@ -22,5 +22,7 @@ func main() {
 
 	api := e.Group("/api/v1")
 	api.GET("/notes", controllers.GetNotes)
+	api.GET("/notes/:id", controllers.GetNote)
+	api.POST("/notes", controllers.CreateNote)
 	e.Run(standard.New(":" + port))
 }
