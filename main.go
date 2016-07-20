@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
-	"github.com/julienschmidt/httprouter"
 	"github.com/jvikstedt/jnotes-backend/controllers"
 	"github.com/jvikstedt/jnotes-backend/db"
-	"github.com/urfave/negroni"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/engine/standard"
 )
 
 func init() {
@@ -18,21 +18,9 @@ func main() {
 	if port == "" {
 		port = "8000"
 	}
+	e := echo.New()
 
-	n := negroni.Classic()
-	n.UseHandler(setupRouter())
-	n.Run(":" + port)
-}
-
-func setupRouter() *httprouter.Router {
-	router := httprouter.New()
-
-	notesController := controllers.NotesController{}
-	router.GET("/notes", notesController.Index)
-	router.GET("/notes/:id", notesController.Find)
-	router.POST("/notes", notesController.Create)
-	router.PATCH("/notes/:id", notesController.Update)
-	router.DELETE("/notes/:id", notesController.Destroy)
-
-	return router
+	api := e.Group("/api/v1")
+	api.GET("/notes", controllers.GetNotes)
+	e.Run(standard.New(":" + port))
 }
