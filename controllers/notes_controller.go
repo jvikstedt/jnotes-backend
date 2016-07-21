@@ -46,7 +46,7 @@ func UpdateNote(c echo.Context) error {
 	if err := c.Bind(&note); err != nil {
 		return err
 	}
-	if err := note.Update(); err != nil {
+	if err := note.Save(); err != nil {
 		return err
 	}
 	return c.JSON(http.StatusCreated, note)
