@@ -23,6 +23,8 @@ func main() {
 	api := e.Group("/api/v1")
 	api.GET("/notes", controllers.GetNotes)
 	api.GET("/notes/:id", controllers.GetNote)
+	api.PATCH("/notes/:id", controllers.UpdateNote)
+	api.DELETE("/notes/:id", controllers.DeleteNote)
 	api.POST("/notes", controllers.CreateNote)
 	e.Run(standard.New(":" + port))
 }

@@ -36,6 +36,35 @@ func CreateNote(c echo.Context) error {
 	return c.JSON(http.StatusCreated, note)
 }
 
+// UpdateNote updates a single note
+func UpdateNote(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	note, err := models.GetNote(id)
+	if err != nil {
+		return c.NoContent(http.StatusNotFound)
+	}
+	if err := c.Bind(&note); err != nil {
+		return err
+	}
+	if err := note.Update(); err != nil {
+		return err
+	}
+	return c.JSON(http.StatusCreated, note)
+}
+
+// DeleteNote deletes a single note
+func DeleteNote(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	note, err := models.GetNote(id)
+	if err != nil {
+		return c.NoContent(http.StatusNotFound)
+	}
+	if err = note.Destroy(); err != nil {
+		return err
+	}
+	return c.NoContent(http.StatusOK)
+}
+
 //type allowedParams struct {
 //	Title string
 //}
